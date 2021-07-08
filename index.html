@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Binary Clock JS</title>
+    </head>
+    <body>
+        <canvas id="binary-clock1"></canvas>
+        <canvas id="binary-clock2"></canvas>
+        <canvas id="binary-clock3"></canvas>
+        <canvas id="binary-clock4"></canvas>
+        <script src="clock.js"></script>
+        <script>
+            binaryClock(new Date(), document.getElementById('binary-clock1'));
+            binaryClock(new Date(), document.getElementById('binary-clock2'), {showDateTimeLabel: true});
+            binaryClock(new Date(), document.getElementById('binary-clock3'), {showDateTimeLabel: false, autoUpdate: false});
+        </script>
+    </body>
+</html>

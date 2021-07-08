@@ -1,0 +1,25 @@
+{
+  "name": "binary-clock-js",
+  "version": "1.0.0",
+  "description": "Display Binary Clock",
+  "main": "clock.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anjnkmr/binary-clock-js.git"
+  },
+  "keywords": [
+    "binary",
+    "clock",
+    "js",
+    "binary-clock"
+  ],
+  "author": "Anjan Kumar <kumar.rakuditi@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anjnkmr/binary-clock-js/issues"
+  },
+  "homepage": "https://github.com/anjnkmr/binary-clock-js#readme"
+}
