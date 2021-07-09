@@ -9,9 +9,9 @@
         <canvas id="binary-clock4"></canvas>
         <script src="clock.js"></script>
         <script>
-            binaryClock(new Date(), document.getElementById('binary-clock1'));
-            binaryClock(new Date(), document.getElementById('binary-clock2'), {showDateTimeLabel: true});
-            binaryClock(new Date(), document.getElementById('binary-clock3'), {showDateTimeLabel: false, autoUpdate: false});
+            new BinaryClock(new Date(), document.getElementById('binary-clock1'));
+            new BinaryClock(new Date(), document.getElementById('binary-clock2'), {showDateTimeLabel: true, autoUpdate: false});
+            new BinaryClock(new Date(2021,05,18,18,42,33), document.getElementById('binary-clock3'), {showDateTimeLabel: true, autoUpdate: false});
         </script>
     </body>
 </html>
