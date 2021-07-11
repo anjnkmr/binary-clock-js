@@ -3,15 +3,21 @@
         <title>Binary Clock JS</title>
     </head>
     <body>
+        <hr/>
+        <h3>Default Setup:</h3>
         <canvas id="binary-clock1"></canvas>
+        <hr/>
+        <h3>showDateTimeLabel is true, autoUpdate is false :</h3>
         <canvas id="binary-clock2"></canvas>
+        <hr/>
+        <h3>showDateTimeLabel is false, autoUpdate is false :</h3>
         <canvas id="binary-clock3"></canvas>
-        <canvas id="binary-clock4"></canvas>
+        <hr/>
         <script src="binary-clock.js"></script>
         <script>
             new BinaryClock(new Date(), document.getElementById('binary-clock1'));
             new BinaryClock(new Date(), document.getElementById('binary-clock2'), {showDateTimeLabel: true, autoUpdate: false});
-            new BinaryClock(new Date(2021,05,18,18,42,33), document.getElementById('binary-clock3'), {showDateTimeLabel: true, autoUpdate: false});
+            new BinaryClock(new Date(2021,05,18,18,42,33), document.getElementById('binary-clock3'), {showDateTimeLabel: false, autoUpdate: false});
         </script>
     </body>
 </html>
