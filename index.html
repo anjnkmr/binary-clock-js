@@ -1,16 +1,27 @@
 <html>
     <head>
         <title>Binary Clock JS</title>
+        <style>
+            body {
+                padding: 50px;
+                display: flex;
+                flex-direction: column;
+            }
+            canvas {
+                width: 160px;
+            }
+        </style>
     </head>
     <body>
+        <h1>Binary Clock JS <code>(<a target="BinaryClockJS" href="https://github.com/anjnkmr/binary-clock-js">Source Code</a>)</code></h1>
         <hr/>
         <h3>Default Setup:</h3>
         <canvas id="binary-clock1"></canvas>
         <hr/>
-        <h3>showDateTimeLabel is true, autoUpdate is false :</h3>
+        <h3><code>showDateTimeLabel</code> is <code>true</code>, <code>autoUpdate</code> is <code>false</code>:</h3>
         <canvas id="binary-clock2"></canvas>
         <hr/>
-        <h3>showDateTimeLabel is false, autoUpdate is false :</h3>
+        <h3><code>showDateTimeLabel</code> is <code>false</code>, <code>autoUpdate</code> is <code>false</code>:</h3>
         <canvas id="binary-clock3"></canvas>
         <hr/>
         <script src="binary-clock.js"></script>

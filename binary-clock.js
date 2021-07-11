@@ -69,13 +69,13 @@ function BinaryClock(date = new Date(), canvas = document.getElementById('binary
         return num > 9 ? num.toString() : '0' + num;
     }
 
+    this.prepareData(date, canvas, options);
     if (options.autoUpdate)
     {
         const dis = this;
         setInterval(() => dis.prepareData(new Date(), canvas, options), 1000);
     }
-    else
-        this.prepareData(date, canvas, options);
+        
 }
 
 
