@@ -1,6 +1,8 @@
 # Binary Clock JS
 This displays the draws the Binary Clock on a Canvas
 
+### Demo: [Link](https://anjnkmr.github.io/binary-clock-js/)
+
 ### Screenshots
 ![Screenshot 1](https://github.com/anjnkmr/binary-clock-js/blob/main/screenshots/screenshot1.png?raw=true)
 
