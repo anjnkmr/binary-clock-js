@@ -36,7 +36,7 @@ This displays the draws the Binary Clock on a Canvas or Terminal
     new BinaryClock(new Date(), document.getElementById('binary-clock-canvas'))
    </script>
 
-4. Web Demo: [Link](https://anjnkmr.github.io/binary-clock-js/)
+4. Web Demo: [Link](https://anjnkmr.github.io/binary-clock-js/web)
 
 
 ### Integration Steps for Terminal
