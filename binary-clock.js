@@ -1,24 +1,43 @@
 
 
-function BinaryClock(date = new Date(), canvas = document.getElementById('binary-clock'), options = {showDateTimeLabel: true, autoUpdate: true}) {
+function BinaryClock(date = new Date(), canvas, options = { showDateTimeLabel: true, autoUpdate: true, type: 'web' }) {
     this.binary_series = [32, 16, 8, 4, 2, 1];
     if (options) {
-        if (options.showDateTimeLabel === undefined) options.showDateTimeLabel = true;
-        if (options.autoUpdate === undefined) options.autoUpdate = true;
+        if (options.showDateTimeLabel === undefined)
+            options.showDateTimeLabel = true;
+        if (options.autoUpdate === undefined)
+            options.autoUpdate = true;
+        if (options.type === undefined)
+            if (typeof process === 'undefined') 
+                options.type = 'web';
+            else
+                options.type = 'node';
     }
-    this.prepareData = function(date, canvas, options) {
+
+    if (typeof process === 'undefined') 
+        options.type = 'web';
+    else
+        options.type = 'node';
+
+    if (options.type === 'node') {
+        options.readline = require('readline');
+    }
+
+    this.prepareData = function (date, canvas, options) {
         let hoursData = this.getBinaryFormat(date.getHours());
         let minuteData = this.getBinaryFormat(date.getMinutes());
         let secondsData = this.getBinaryFormat(date.getSeconds());
-        canvas.setAttribute('height', options.showDateTimeLabel ? 110 : 80);
-        canvas.setAttribute('width', 160);
-        this.displayData([hoursData, minuteData, secondsData], canvas);
-        if (options.showDateTimeLabel) {
-            this.showDateTimeLabel(date, canvas);
+        if (options.type === 'web') {
+            canvas.setAttribute('height', options.showDateTimeLabel ? 110 : 80);
+            canvas.setAttribute('width', 160);
         }
-    }
-    
-    this.getBinaryFormat = function(num) {
+        this.displayData([hoursData, minuteData, secondsData], canvas, options);
+        if (options.showDateTimeLabel) {
+            this.showDateTimeLabel(date, canvas, options);
+        }
+    };
+
+    this.getBinaryFormat = function (num) {
         let binary_format = [0, 0, 0, 0, 0, 0];
         let selectedIndices = [];
         let selectedTotal = 0;
@@ -26,7 +45,7 @@ function BinaryClock(date = new Date(), canvas = document.getElementById('binary
             if (digit <= num) {
                 selectedTotal += digit;
                 if (selectedTotal <= num) {
-                    selectedIndices.push(this.binary_series.indexOf(digit))
+                    selectedIndices.push(this.binary_series.indexOf(digit));
                 } else {
                     selectedTotal -= digit;
                 }
@@ -36,17 +55,20 @@ function BinaryClock(date = new Date(), canvas = document.getElementById('binary
             binary_format[ind] = 1;
         }
         return binary_format;
-    }
-    
-    this.displayData = function(timeDataBinaryFormat, canvas) {
-        if (!canvas.getContext) {
-            throw new Error('Canvas not supported in this browser');
+    };
+
+    this.displayData = function (timeDataBinaryFormat, canvas, options) {
+        if (options.type === 'web') {
+            if (!canvas.getContext) 
+                throw new Error('Canvas not supported in this browser');
+            let ctx = canvas.getContext('2d');
+            this.addToScreen(ctx, timeDataBinaryFormat, options);
+        } else {
+            this.addToConsole(canvas, timeDataBinaryFormat, options);
         }
-        let ctx = canvas.getContext('2d');
-        this.addToScreen(ctx, timeDataBinaryFormat);
-    }
-    
-    this.addToScreen = function(ctx, bin_rows) {
+    };
+
+    this.addToScreen = function (ctx, bin_rows, options) {
         for (let [rowInd, bin_nums] of bin_rows.entries()) {
             for (let [numInd, digit] of bin_nums.entries()) {
                 ctx.beginPath();
@@ -56,27 +78,41 @@ function BinaryClock(date = new Date(), canvas = document.getElementById('binary
                 digit == 0 ? ctx.stroke() : ctx.fill();
             }
         }
-    }
-    
-    this.showDateTimeLabel = function(date, canvas) {
-        let ctx = canvas.getContext('2d');
-        ctx.font = '15px serif';
-        ctx.fillText(this.padWithZero(date.getHours()) + ':' + this.padWithZero(date.getMinutes()) + ':' + this.padWithZero(date.getSeconds()), 43, 93);
-        ctx.closePath();
-    }
-    
-    this.padWithZero = function(num) {
-        return num > 9 ? num.toString() : '0' + num;
+    };
+
+    this.addToConsole = function (canvas, bin_rows, options) {
+        process.stdout.write('\n\n\r');
+        for (let [rowInd, bin_nums] of bin_rows.entries()) {
+            let row = '';
+            for (let [numInd, digit] of bin_nums.entries()) {
+                row += (digit === 0 ? '  ⚪' : '  ⚫');
+            }
+            process.stdout.write(row + '\n\n\r');
+        }
     }
 
+    this.showDateTimeLabel = function (date, canvas, options) {
+        if (options.type === 'web') {
+            let ctx = canvas.getContext('2d');
+            ctx.font = '15px serif';
+            ctx.fillText(this.padWithZero(date.getHours()) + ':' + this.padWithZero(date.getMinutes()) + ':' + this.padWithZero(date.getSeconds()), 43, 93);
+            ctx.closePath();
+        } else {
+            process.stdout.write('         ' + this.padWithZero(date.getHours()) + ':' + this.padWithZero(date.getMinutes()) + ':' + this.padWithZero(date.getSeconds()) + '\n\n\n');
+        }
+    };
+
+    this.padWithZero = function (num) {
+        return num > 9 ? num.toString() : '0' + num;
+    };
+
     this.prepareData(date, canvas, options);
-    if (options.autoUpdate)
-    {
+    if (options.autoUpdate) {
         const dis = this;
         setInterval(() => dis.prepareData(new Date(), canvas, options), 1000);
     }
-        
 }
 
 
-
+if (typeof process !== 'undefined')
+    exports.BinaryClock = BinaryClock;

@@ -1,8 +1,8 @@
 {
   "name": "binary-clock-js",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Display Binary Clock",
-  "main": "clock.js",
+  "main": "binary-clock.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,6 +14,8 @@
     "binary",
     "clock",
     "js",
+    "canvas",
+    "terminal",
     "binary-clock"
   ],
   "author": "Anjan Kumar <kumar.rakuditi@gmail.com>",
